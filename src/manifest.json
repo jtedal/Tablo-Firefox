@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extensionName__",
+  "default_locale": "en",
+  "version": "0.5.0",
+  "description": "__MSG_extensionDescription__",
+  "permissions": ["storage"],
+  "optional_permissions": ["webRequest"],
+  "optional_host_permissions": ["https://*/*", "http://*/*"],
+  "chrome_url_overrides": { "newtab": "newtab.html" },
+  "chrome_settings_overrides": { "homepage": "newtab.html" },
+  "icons": { "48": "assets/icon-48.png", "96": "assets/icon-96.png" },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "tablo-startpage@local.personal",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": { "required": ["none"], "optional": ["locationInfo", "browsingActivity"] }
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src https: http:; object-src 'none'; base-uri 'none'"
+  }
+}

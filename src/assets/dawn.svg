@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="1600" viewBox="0 0 2560 1600">
+  <defs>
+    <linearGradient id="sky" x2="0.3" y2="1"><stop stop-color="#a7a4c6"/><stop offset="0.5" stop-color="#e1b8be"/><stop offset="1" stop-color="#f2d3b4"/></linearGradient>
+    <radialGradient id="light"><stop stop-color="#fff1d2" stop-opacity="0.85"/><stop offset="0.35" stop-color="#ffe1c3" stop-opacity="0.4"/><stop offset="1" stop-color="#ffe1c3" stop-opacity="0"/></radialGradient>
+    <linearGradient id="distant" x2="0" y2="1"><stop stop-color="#baa2ba"/><stop offset="1" stop-color="#b4a5bb"/></linearGradient>
+    <linearGradient id="middle" x2="0.3" y2="1"><stop stop-color="#9685a8"/><stop offset="1" stop-color="#a492b0"/></linearGradient>
+    <linearGradient id="near" x2="0.2" y2="1"><stop stop-color="#7b7294"/><stop offset="1" stop-color="#656684"/></linearGradient>
+    <linearGradient id="front" x2="0.4" y2="1"><stop stop-color="#686780"/><stop offset="1" stop-color="#454e6c"/></linearGradient>
+    <linearGradient id="mist" x2="0" y2="1"><stop stop-color="#f8d8c3" stop-opacity="0"/><stop offset="0.5" stop-color="#f8d8c3" stop-opacity="0.42"/><stop offset="1" stop-color="#f8d8c3" stop-opacity="0"/></linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="34"/></filter>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h2560v1600H0z"/>
+  <ellipse cx="1970" cy="622" rx="980" ry="770" fill="url(#light)"/>
+  <circle cx="2075" cy="640" r="65" fill="#ffe8ca" opacity="0.65"/>
+  <path d="M0 973C157 910 308 843 443 865S697 979 857 939 1105 817 1300 846 1572 907 1777 831 2078 783 2280 832 2460 861 2560 826V1600H0Z" fill="url(#distant)"/>
+  <path d="M0 1125C178 1060 336 961 527 990S849 1136 1058 1077 1390 956 1568 1010 1900 1076 2090 1017 2386 919 2560 946V1600H0Z" fill="url(#middle)"/>
+  <path d="M0 1120C348 1100 625 1170 1000 1158S1682 1055 2070 1124 2398 1120 2560 1090V1330H0Z" fill="url(#mist)" filter="url(#blur)"/>
+  <path d="M0 1118C250 1094 480 1170 726 1225S1135 1215 1359 1179 1748 1110 1960 1172 2358 1299 2560 1236V1600H0Z" fill="url(#near)"/>
+  <path d="M0 1392C246 1302 454 1282 680 1345S1044 1414 1266 1364 1578 1335 1800 1400 2270 1438 2560 1351V1600H0Z" fill="url(#front)"/>
+  <path d="M0 1530C298 1465 485 1487 776 1539S1220 1485 1490 1512 2000 1572 2560 1502V1600H0Z" fill="#3d4865" opacity="0.5"/>
+</svg>

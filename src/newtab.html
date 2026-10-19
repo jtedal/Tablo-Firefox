@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ru" data-ready="false">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title data-i18n="ui.app-name">Tablo</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/aurora.svg" as="image">
+  <link rel="stylesheet" href="styles.css">
+  <script src="locales/ui.js"></script>
+  <script src="locales/app.js"></script>
+  <script src="locales/core.js"></script>
+  <script src="locales/errors.js"></script>
+  <script src="i18n.js"></script>
+  <script src="background.js"></script>
+  <script src="search-engines.js"></script>
+  <script src="search.js"></script>
+  <script src="weather-forecast.js"></script>
+  <script src="weather-preview.js"></script>
+  <script src="clock.js"></script>
+  <script src="site-icons.js"></script>
+  <script src="tiles-preview.js"></script>
+  <script src="startup.js" defer></script>
+  <script type="module" src="app.js"></script>
+</head>
+<body data-background="aurora" data-size="medium" data-width="wide">
+  <div id="wallpaper" class="wallpaper" aria-hidden="true"></div>
+  <div class="shade" aria-hidden="true"></div>
+  <div id="startup-skeleton" class="startup-skeleton" aria-hidden="true" inert>
+    <div id="startup-skeleton-layout" class="startup-skeleton-layout">
+      <div class="startup-skeleton-head"></div>
+      <div class="startup-skeleton-main">
+        <div class="startup-skeleton-top-space"></div>
+        <div class="startup-skeleton-board"><div class="startup-skeleton-toolbar"></div><div class="startup-skeleton-grid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
+      </div>
+    </div>
+    <div id="startup-skeleton-mapped" class="startup-skeleton-mapped" hidden></div>
+  </div>
+  <div id="tablo-surface" class="tablo-surface">
+  <header class="page-header" data-reveal inert>
+    <button id="settings-button" class="icon-button glass" title="Настройки" aria-label="Настройки" data-i18n-title="ui.settings" data-i18n-aria-label="ui.settings"><span data-icon="settings"></span></button>
+  </header>
+  <main class="main">
+    <section id="clock-section" class="clock-section" aria-label="Часы и погода" data-i18n-aria-label="ui.clock-weather">
+      <div id="clock-face" class="clock-face"><time id="clock" class="clock"></time><p id="date" class="date"></p></div>
+      <button id="weather-button" class="weather-button" aria-label="Weather and city selection" inert><span id="weather-symbol" class="weather-symbol" aria-hidden="true"></span><span class="weather-readout"><span id="weather-temperature" class="weather-temperature"></span><span id="weather-city" class="weather-city"></span><span id="weather-summary" class="weather-summary"></span></span></button>
+    </section>
+    <section id="weather-week" class="weather-week" aria-label="Прогноз на семь дней" data-i18n-aria-label="ui.forecast-seven-days" hidden><p id="weather-week-city" class="weather-week-city"></p><div id="weather-week-days" class="weather-forecast"></div><button id="weather-week-open" class="weather-week-open" type="button" aria-label="Open detailed weather forecast" aria-haspopup="dialog" aria-controls="weather-dialog" inert></button></section>
+    <form id="search-form" class="search" role="search">
+      <button class="search-submit" type="submit" title="Найти" aria-label="Найти" data-i18n-title="ui.search" data-i18n-aria-label="ui.search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      <input id="search-input" type="text" autocomplete="off" spellcheck="false" aria-label="Поиск или адрес сайта" data-i18n-aria-label="ui.search-address">
+      <div id="search-engines" class="search-engines" role="group" aria-label="Поисковая система" data-i18n-aria-label="ui.search-engine"></div>
+    </form>
+    <section class="board" aria-label="Сайты и папки" data-i18n-aria-label="ui.sites-folders" data-reveal inert aria-busy="true">
+      <div class="board-toolbar">
+        <div class="toolbar-actions">
+          <button id="edit-button" class="text-button" aria-pressed="false"><span data-icon="edit"></span><span></span></button>
+        </div>
+      </div>
+      <div id="root-grid" class="tile-grid" aria-label="Сайты и папки" data-i18n-aria-label="ui.sites-folders"></div>
+      <div id="root-empty" class="empty-state" hidden><span data-icon="grid"></span><h2 data-i18n="ui.empty-title">Место для любимых сайтов</h2><p data-i18n="ui.empty-help">Добавьте первый сайт или создайте папку.</p><button id="empty-add" class="primary-button" data-i18n="ui.add-site">Добавить сайт</button></div>
+    </section>
+  </main>
+  <footer class="page-footer" data-reveal inert><span id="save-status" aria-live="polite"></span><button id="background-button" class="text-button"><span data-icon="image"></span><span data-i18n="ui.change-background">Сменить фон</span></button></footer>
+  </div>
+  <div id="startup-status" class="startup-status" role="status" hidden><p id="startup-message"></p><button id="startup-reload" class="secondary-button" data-i18n="ui.reload" hidden>Перезагрузить</button></div>
+  <noscript><p class="startup-noscript">Enable JavaScript to open Tablo. / Включите JavaScript, чтобы открыть Табло.</p></noscript>
+  <div id="menu" class="context-menu" role="menu" popover="manual" hidden></div>
+  <div id="toast" class="toast" role="status" popover="manual" hidden><span id="toast-message"></span><button id="toast-action" data-i18n="ui.undo" hidden>Отменить</button><button id="toast-close" class="icon-button" aria-label="Закрыть уведомление" data-i18n-aria-label="ui.close-notification"><span data-icon="close"></span></button></div>
+  <dialog id="folder-dialog" class="folder-dialog">
+    <div class="folder-header"><div><h2 id="folder-title"></h2><p id="folder-count"></p></div><div class="folder-header-actions"><button id="rename-folder" class="icon-button" title="Переименовать папку" aria-label="Переименовать папку" data-i18n-title="ui.rename-folder" data-i18n-aria-label="ui.rename-folder"><span data-icon="edit"></span></button><button class="icon-button" data-close="folder-dialog" aria-label="Закрыть папку" data-i18n-aria-label="ui.close-folder"><span data-icon="close"></span></button></div></div>
+    <div id="folder-grid" class="tile-grid" aria-label="Сайты в папке" data-i18n-aria-label="ui.sites-in-folder"></div>
+    <div id="folder-empty" class="empty-state" hidden><span data-icon="folder"></span><h3 data-i18n="ui.folder-empty-title">Пока пусто</h3><p data-i18n="ui.folder-empty-help">Добавьте сайт сюда или перетащите его на папку на главной.</p></div>
+    <button id="folder-add" class="folder-add text-button"><span data-icon="plus"></span><span data-i18n="ui.add-site">Добавить сайт</span></button>
+  </dialog>
+  <dialog id="editor-dialog" class="editor-dialog">
+    <form id="editor-form">
+      <div class="dialog-heading"><h2 id="editor-title"></h2><button type="button" class="icon-button" data-close="editor-dialog" aria-label="Закрыть" data-i18n-aria-label="ui.close"><span data-icon="close"></span></button></div>
+      <label id="url-field" class="field"><span data-i18n="ui.site-address">Адрес сайта</span><input id="site-url" type="text" placeholder="example.com" autocomplete="url" maxlength="2048" spellcheck="false"></label>
+      <div id="metadata-section" class="metadata-section"><div class="metadata-row"><span id="metadata-preview" class="metadata-preview" aria-hidden="true"></span><button id="metadata-button" class="secondary-button" type="button"><span data-icon="download"></span><span></span></button></div><p id="metadata-status" class="field-help" role="status"></p></div>
+      <label class="field"><span data-i18n="ui.name">Название</span><input id="item-title" type="text" maxlength="80" required></label>
+      <div id="site-fields">
+        <label class="field"><span data-i18n="ui.location">Расположение</span><select id="item-parent"></select></label>
+        <div class="field"><span data-i18n="ui.tile-color">Цвет плитки</span><div id="color-palette" class="color-palette"></div></div>
+        <details class="editor-advanced"><summary data-i18n="ui.custom-color-icon">Свой цвет и значок</summary><div class="editor-extras"><label class="field"><span data-i18n="ui.custom-color">Свой цвет</span><input id="item-color" type="color" value="#4466dd"></label><label class="field icon-field"><span data-i18n="ui.manual-icon">Значок вручную</span><input id="item-icon" type="text" placeholder="Автоматически с сайта" data-i18n-placeholder="ui.automatic-site-icon" maxlength="16" aria-label="Свой значок или короткий текст" data-i18n-aria-label="ui.custom-icon-text"></label></div></details>
+      </div>
+      <p id="editor-error" class="form-error" role="alert" hidden></p>
+      <div class="dialog-actions"><button type="button" class="secondary-button" data-close="editor-dialog" data-i18n="ui.cancel">Отмена</button><button type="submit" class="primary-button" data-i18n="ui.save">Сохранить</button></div>
+    </form>
+  </dialog>
+  <dialog id="move-dialog" class="editor-dialog">
+    <form id="move-form"><div class="dialog-heading"><h2 data-i18n="ui.move-site">Переместить сайт</h2><button type="button" class="icon-button" data-close="move-dialog" aria-label="Закрыть" data-i18n-aria-label="ui.close"><span data-icon="close"></span></button></div><label class="field"><span data-i18n="ui.location">Расположение</span><select id="move-parent"></select></label><div class="dialog-actions"><button type="button" class="secondary-button" data-close="move-dialog" data-i18n="ui.cancel">Отмена</button><button class="primary-button" type="submit" data-i18n="ui.move">Переместить</button></div></form>
+  </dialog>
+  <dialog id="confirm-dialog" class="editor-dialog">
+    <div class="dialog-heading"><h2 id="confirm-title"></h2><button class="icon-button" data-close="confirm-dialog" aria-label="Закрыть" data-i18n-aria-label="ui.close"><span data-icon="close"></span></button></div><p id="confirm-text" class="confirm-text"></p><div class="dialog-actions"><button class="secondary-button" data-close="confirm-dialog" data-i18n="ui.cancel">Отмена</button><button id="confirm-action" class="danger-button"></button></div>
+  </dialog>
+  <dialog id="settings-dialog" class="settings-dialog">
+    <div class="settings-heading"><div><h2 data-i18n="ui.settings">Настройки</h2></div><button class="icon-button" data-close="settings-dialog" aria-label="Закрыть настройки" data-i18n-aria-label="ui.close-settings"><span data-icon="close"></span></button></div>
+    <div class="settings-scroll">
+      <section class="settings-section"><label class="field inline-field"><span data-i18n="ui.language">Язык / Language</span><select id="language" data-setting="language"><option value="auto" data-i18n="ui.language-auto">Browser language</option><option value="ru">Русский</option><option value="en">English</option></select></label></section>
+      <section class="settings-section"><h3 data-i18n="ui.background">Фон</h3><div id="backgrounds" class="backgrounds"></div><label class="upload-button secondary-button"><span data-icon="image"></span><span data-i18n="ui.choose-image">Выбрать своё изображение</span><input id="background-file" type="file" accept="image/jpeg,image/png,image/webp,image/avif" hidden></label><button id="clear-background" class="text-button small" data-i18n="ui.remove-image" hidden>Убрать своё изображение</button><label class="range-field"><span data-i18n="ui.dim-background">Затемнение</span> <output id="dim-value">20%</output><input id="dim" data-setting="dim" type="range" min="0" max="70" step="5"></label></section>
+      <section class="settings-section"><h3 data-i18n="ui.tiles">Плитки</h3><label class="field inline-field"><span data-i18n="ui.size">Размер</span><select id="tile-size" data-setting="tileSize"><option value="small" data-i18n="ui.size-small">Маленький</option><option value="medium" data-i18n="ui.size-medium">Средний</option><option value="large" data-i18n="ui.size-large">Большой</option></select></label><label class="field inline-field"><span data-i18n="ui.board-width">Ширина табло</span><select id="board-width" data-setting="width"><option value="compact" data-i18n="ui.width-compact">Компактная</option><option value="wide" data-i18n="ui.width-wide">Широкая</option><option value="fluid" data-i18n="ui.width-fluid">По ширине окна</option></select></label><label class="switch-field"><span data-i18n="ui.open-new-tab">Открывать сайты в новой вкладке</span><input id="open-new" data-setting="openInNewTab" type="checkbox" role="switch"></label></section>
+      <section class="settings-section"><h3 data-i18n="ui.site-icons">Значки сайтов</h3><p class="settings-copy" data-i18n="ui.site-icons-help">Для уже добавленных сайтов можно загрузить значки одним действием. Названия и выбранные цвета сохранятся.</p><button id="refresh-icons" class="secondary-button"><span data-icon="refresh"></span><span data-i18n="ui.load-site-icons">Загрузить значки сайтов</span></button><p id="icons-status" class="field-help" role="status"></p></section>
+      <section class="settings-section"><h3 data-i18n="ui.on-page">На странице</h3><label class="switch-field"><span data-i18n="ui.clock-date">Часы и дата</span><input id="show-clock" data-setting="showClock" type="checkbox" role="switch"></label><label class="switch-field"><span data-i18n="ui.search-bar">Строка поиска</span><input id="show-search" data-setting="showSearch" type="checkbox" role="switch"></label></section>
+      <section class="settings-section"><h3 data-i18n="ui.search-providers">Поисковые системы</h3><p class="settings-copy" data-i18n="ui.search-providers-help">Выберите поисковики, которые будут доступны в строке поиска.</p><div id="search-engine-options" class="search-engine-options"></div><label class="field inline-field"><span data-i18n="ui.search-default">По умолчанию</span><select id="search-engine" data-setting="searchEngine"></select></label></section>
+      <section class="settings-section"><h3 data-i18n="ui.weather">Погода</h3><label class="switch-field"><span data-i18n="ui.show-weather">Показывать погоду</span><input id="show-weather" data-setting="showWeather" type="checkbox" role="switch"></label><label class="field inline-field"><span data-i18n="ui.weather-provider">Источник</span><select id="weather-provider" data-setting="weatherProvider"><option value="open-meteo">Open-Meteo</option><option value="metno">MET Norway</option></select></label><label class="field inline-field"><span data-i18n="ui.widget-layout">Вид виджета</span><select id="weather-layout" data-setting="weatherLayout"><option value="week" data-i18n="ui.forecast-week">Прогноз на неделю</option><option value="compact" data-i18n="ui.layout-compact">Компактный</option></select></label><button id="weather-settings-button" class="city-settings-button"><span data-icon="location"></span><span><strong id="settings-city"></strong><span data-i18n="ui.change-city">Изменить город</span></span><span data-icon="chevron-right"></span></button><p class="settings-copy weather-privacy" data-i18n="ui.weather-privacy">Open-Meteo и MET Norway работают без ключей. Координаты выбранного города передаются только выбранному сервису после разрешения Firefox. Поиск городов — Open-Meteo.</p></section>
+      <section class="settings-section"><h3 data-i18n="ui.backup">Резервная копия</h3><p class="settings-copy" data-i18n="ui.backup-help">Сайты, папки и оформление хранятся в этом Firefox. Сохраните копию перед переносом или удалением расширения.</p><div class="data-actions"><button id="export-button" class="secondary-button"><span data-icon="download"></span><span data-i18n="ui.save">Сохранить</span></button><label class="secondary-button upload-button"><span data-icon="upload"></span><span data-i18n="ui.restore">Восстановить</span><input id="import-file" type="file" accept="application/json,.json" hidden></label></div><button id="reset-button" class="text-button danger-text small" data-i18n="ui.reset-defaults">Вернуть начальный набор</button></section>
+      <div class="about"><img src="assets/icon.svg" width="28" height="28" alt=""><div><span data-i18n="ui.app-name">Табло</span> <span class="muted">0.5.0</span><p data-i18n="ui.tagline">Ваши сайты. Ваше пространство.</p></div></div>
+    </div>
+  </dialog>
+  <dialog id="weather-dialog" class="weather-dialog editor-dialog"><div class="dialog-heading"><h2 data-i18n="ui.weather">Погода</h2><button class="icon-button" data-close="weather-dialog" aria-label="Закрыть погоду" data-i18n-aria-label="ui.close-weather"><span data-icon="close"></span></button></div><div id="weather-detail" class="weather-detail"></div><section class="weather-dialog-forecast" aria-label="Прогноз на неделю" data-i18n-aria-label="ui.forecast-week"><h3 data-i18n="ui.next-seven-days">Ближайшие семь дней</h3><div id="weather-detail-days" class="weather-forecast"></div><p id="weather-detail-note" class="weather-forecast-note"></p></section><div class="weather-dialog-actions"><button id="weather-enable" class="primary-button" data-i18n="ui.enable-weather">Включить погоду</button><button id="weather-refresh" class="secondary-button"><span data-icon="refresh"></span><span data-i18n="ui.refresh">Обновить</span></button></div><form id="city-form" class="city-form"><label class="field" for="city-query" data-i18n="ui.find-city">Найти город</label><div class="city-search"><input id="city-query" type="search" placeholder="Например, Вена" data-i18n-placeholder="ui.city-example" minlength="2" maxlength="100" required autocomplete="off"><button class="icon-button" type="submit" aria-label="Найти город" data-i18n-aria-label="ui.find-city"><span data-icon="search"></span></button></div></form><p id="city-status" class="field-help" role="status"></p><div id="city-results" class="city-results" aria-label="Найденные города" data-i18n-aria-label="ui.city-results"></div><div class="weather-sources"><a id="weather-attribution" class="weather-attribution" href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer"><span id="weather-source-name"></span><span data-icon="external"></span></a><a id="weather-license" class="weather-attribution" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a><a id="weather-yandex" class="weather-attribution" target="_blank" rel="noopener noreferrer"><span id="weather-external-label"></span><span data-icon="external"></span></a></div></dialog>
+  <dialog id="storage-error-dialog" class="editor-dialog"><div class="dialog-heading"><h2 data-i18n="ui.storage-error-title">Не удалось открыть Табло</h2></div><p class="confirm-text" data-i18n="ui.storage-error-help">Сохранённые данные не удалось прочитать. Они не перезаписаны. Сохраните исходные данные для восстановления или попробуйте открыть страницу снова.</p><p id="storage-error-text" class="form-error"></p><div class="dialog-actions"><button id="raw-export" class="secondary-button" data-i18n="ui.download-data">Скачать данные</button><button id="retry-load" class="primary-button" data-i18n="ui.retry">Повторить</button></div></dialog>
+</body>
+</html>

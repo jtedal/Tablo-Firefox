@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="1600" viewBox="0 0 2560 1600">
+  <defs>
+    <linearGradient id="sky" x2="0.5" y2="1"><stop stop-color="#537d7b"/><stop offset="0.52" stop-color="#a6beb0"/><stop offset="1" stop-color="#dee0c1"/></linearGradient>
+    <radialGradient id="light"><stop stop-color="#fff1cc" stop-opacity="0.65"/><stop offset="0.5" stop-color="#dfe8c7" stop-opacity="0.25"/><stop offset="1" stop-color="#dfe8c7" stop-opacity="0"/></radialGradient>
+    <linearGradient id="distant" x2="0" y2="1"><stop stop-color="#82a397"/><stop offset="1" stop-color="#95b3a2"/></linearGradient>
+    <linearGradient id="middle" x2="0.6" y2="1"><stop stop-color="#467b70"/><stop offset="1" stop-color="#658e7a"/></linearGradient>
+    <linearGradient id="near" x2="0.2" y2="1"><stop stop-color="#315f55"/><stop offset="1" stop-color="#2c544a"/></linearGradient>
+    <linearGradient id="front" x2="0.5" y2="1"><stop stop-color="#204b43"/><stop offset="1" stop-color="#12312d"/></linearGradient>
+    <linearGradient id="mist" x2="0" y2="1"><stop stop-color="#e1ead7" stop-opacity="0"/><stop offset="0.5" stop-color="#e1ead7" stop-opacity="0.48"/><stop offset="1" stop-color="#e1ead7" stop-opacity="0"/></linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="35"/></filter>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h2560v1600H0z"/>
+  <ellipse cx="1920" cy="500" rx="1160" ry="840" fill="url(#light)"/>
+  <path d="M0 1015C140 971 265 899 416 885S702 955 884 909 1160 803 1312 843 1575 946 1748 871 2051 712 2228 777 2430 903 2560 842V1600H0Z" fill="url(#distant)"/>
+  <path d="M0 1099C196 1020 375 1006 560 1057S829 1141 1049 1066 1360 973 1544 1020 1853 1092 2061 1037 2380 976 2560 1004V1600H0Z" fill="url(#middle)"/>
+  <path d="M0 1090C416 1090 667 1162 1023 1145S1710 1062 2088 1118 2380 1140 2560 1102V1310H0Z" fill="url(#mist)" filter="url(#blur)"/>
+  <path d="M0 1095C252 1108 370 1192 629 1237S1050 1217 1256 1253 1557 1303 1792 1244 2230 1111 2560 1177V1600H0Z" fill="url(#near)"/>
+  <path d="M0 1315C246 1268 482 1344 734 1396S1117 1374 1313 1407 1647 1462 1884 1413 2290 1316 2560 1365V1600H0Z" fill="url(#front)"/>
+  <path d="M0 1514C317 1427 515 1510 780 1531S1220 1494 1525 1536 2052 1575 2560 1507V1600H0Z" fill="#102e2a" opacity="0.6"/>
+</svg>
