@@ -23,10 +23,6 @@
     [['rutube.ru'], 'RUTUBE'],
     [['discord.com','discord.gg'], 'Discord']
   ];
-  const paths = {
-    plus: '<path d="M12 5v14M5 12h14"/>',
-    folder: '<path d="M3 8V6a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>'
-  };
   const signatures = new WeakMap();
   const root = document.documentElement;
   const t = (key, params) => globalThis.tabloI18n.t(key, params);
@@ -175,9 +171,7 @@
   }
 
   function icon(name) {
-    const span = document.createElement('span');
-    span.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${paths[name]}</svg>`;
-    return span;
+    return globalThis.tabloIcons.create(name);
   }
 
   function count(item) {

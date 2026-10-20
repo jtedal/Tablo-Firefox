@@ -1,9 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { createMetWeatherService } from '../src/met-weather.js';
 import { createDefaultState } from '../src/model.js';
 
 const NOW = Date.UTC(2026, 9, 19, 10, 30);
+const version = JSON.parse(readFileSync(new URL('../src/manifest.json', import.meta.url), 'utf8')).version;
 const clone = value => JSON.parse(JSON.stringify(value));
 const city = () => createDefaultState().settings.weatherCity;
 const key = (value = city()) => `${Math.trunc(value.latitude * 10000) / 10000},${Math.trunc(value.longitude * 10000) / 10000}@${value.timezone}`;
@@ -62,7 +64,8 @@ test('MET использует HTTPS, точность до четырёх зн�
   assert.equal(request.url.pathname, '/weatherapi/locationforecast/2.0/compact');
   assert.equal(request.url.searchParams.get('lat'), '48.2084');
   assert.equal(request.url.searchParams.get('lon'), '16.372');
-  assert.match(request.options.headers['User-Agent'], /^Tablo-Firefox\/0\.5\.0 .*https:\/\/addons\.mozilla\.org\/addon\/3101048\//);
+  assert.ok(request.options.headers['User-Agent'].startsWith(`Tablo-Firefox/${version} `));
+  assert.match(request.options.headers['User-Agent'], /https:\/\/addons\.mozilla\.org\/addon\/3101048\//);
   assert.doesNotMatch(request.options.headers['User-Agent'], /[^\x20-\x7e]/);
   assert.equal(request.options.credentials, 'omit');
   assert.equal(request.options.referrerPolicy, 'no-referrer');

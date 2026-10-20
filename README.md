@@ -8,7 +8,7 @@ A new tab page for the sites you use every day. Keep them in folders, pick a bac
 
 ## Features
 
-- Site titles and icons are picked up automatically when you add a bookmark.
+- Add a site by its address; Tablo finds its title and icon for you.
 - Change tile colors and drag tiles into place.
 - Group sites into folders and rearrange the contents.
 - Search with Google, Yandex, Bing, DuckDuckGo, Brave, or Ecosia. Enable the engines you use in Settings and switch by clicking their icons in the search bar.
@@ -41,4 +41,4 @@ A temporary installation lasts until Firefox restarts. Use **Backup** in Tablo s
 
 Your sites and settings are stored in your Firefox profile. See the [privacy policy](PRIVACY.en.md) for details.
 
-[Report an issue](https://github.com/jtedal/Tablo-Firefox/issues) · [Development guide, in Russian](docs/DEVELOPMENT.md) · [MIT license](LICENSE)
+[Release notes](CHANGELOG.md) · [Report an issue](https://github.com/jtedal/Tablo-Firefox/issues) · [Development guide, in Russian](docs/DEVELOPMENT.md) · [MIT license](LICENSE)

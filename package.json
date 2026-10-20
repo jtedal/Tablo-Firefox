@@ -1,6 +1,6 @@
 {
   "name": "tablo-firefox",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Стартовая страница Firefox с плитками сайтов, папками, поиском и погодой.",
   "private": true,
   "license": "MIT",

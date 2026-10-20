@@ -2,7 +2,7 @@
 
 [Русский](PRIVACY.md)
 
-For the source code of version 0.5.0, dated October 19, 2026.
+For the source code of version 0.5.1, dated October 19, 2026.
 
 ## Local data
 

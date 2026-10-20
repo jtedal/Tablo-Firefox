@@ -29,10 +29,9 @@ function cleanTitle(value) {
 }
 
 function parseHtml(html) {
-  const inert = new DOMParser().parseFromString('', 'text/html');
-  const template = inert.createElement('template');
-  template.innerHTML = html;
-  return template.content;
+  const document = new DOMParser().parseFromString(`<body>${html}`, 'text/html');
+  for (const fallback of document.querySelectorAll('noscript')) fallback.remove();
+  return document;
 }
 
 function iconScore(element) {

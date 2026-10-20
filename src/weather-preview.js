@@ -15,16 +15,6 @@
     [80, ['Небольшой ливень', 'rain']], [81, ['Ливень', 'rain']], [82, ['Сильный ливень', 'rain']], [83, ['Небольшой ливень со снегом', 'snow']], [84, ['Ливень со снегом', 'snow']], [85, ['Небольшой снежный ливень', 'snow']], [86, ['Сильный снежный ливень', 'snow']],
     [95, ['Гроза', 'storm']], [96, ['Гроза с небольшим градом', 'storm']], [97, ['Сильная гроза', 'storm']], [99, ['Гроза с сильным градом', 'storm']]
   ]);
-  const paths = {
-    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/>',
-    moon: '<path d="M20 15A9 9 0 0 1 9 4a9 9 0 1 0 11 11Z"/>',
-    cloud: '<path d="M6 19a5 5 0 0 1-1-9 7 7 0 0 1 13-2 5.5 5.5 0 0 1 0 11Z"/>',
-    'cloud-sun': '<path d="M7 5V3M3 9H1m3-4L2.5 3.5M11 4l1-2"/><path d="M3 12a4 4 0 1 1 8-4M7 20a4 4 0 0 1-1-8 6 6 0 0 1 11-1 4.5 4.5 0 0 1 1 9Z"/>',
-    fog: '<path d="M5 13a4 4 0 0 1 0-8 6 6 0 0 1 11 1 4 4 0 0 1 3 7M3 17h18M6 21h12"/>',
-    rain: '<path d="M5 14a4 4 0 0 1 0-8 6 6 0 0 1 11 1 4 4 0 0 1 2 7M7 17l-1 3m6-3-1 3m6-3-1 3"/>',
-    snow: '<path d="M5 14a4 4 0 0 1 0-8 6 6 0 0 1 11 1 4 4 0 0 1 2 7M7 18v4m-2-2h4m7-2v4m-2-2h4"/>',
-    storm: '<path d="M5 14a4 4 0 0 1 0-8 6 6 0 0 1 11 1 4 4 0 0 1 2 7M12 13l-4 6h5l-2 4 7-8h-5l2-3"/>'
-  };
   let current;
 
   function plainObject(value) {
@@ -143,9 +133,7 @@
   }
 
   function weatherIcon(name) {
-    const span = document.createElement('span');
-    span.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${paths[name]}</svg>`;
-    return span;
+    return globalThis.tabloIcons.create(name);
   }
 
   function applyLayout(saved) {

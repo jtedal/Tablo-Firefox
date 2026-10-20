@@ -6,7 +6,7 @@ const CACHE_TTL = 15 * 60 * 1000;
 const STALE_TTL = 6 * 60 * 60 * 1000;
 const CACHE_RETENTION = 10 * 24 * 60 * 60 * 1000;
 const REQUEST_TIMEOUT = 8000;
-const USER_AGENT = 'Tablo-Firefox/0.5.0 (https://addons.mozilla.org/addon/3101048/; Tablo - favorite sites)';
+const USER_AGENT = 'Tablo-Firefox/0.5.1 (https://addons.mozilla.org/addon/3101048/; Tablo - favorite sites)';
 const SYMBOL_CODES = new Map(Object.entries({
   clearsky: 0, fair: 1, partlycloudy: 2, cloudy: 3, fog: 45,
   lightrain: 61, rain: 63, heavyrain: 65,

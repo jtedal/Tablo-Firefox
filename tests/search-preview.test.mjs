@@ -6,6 +6,7 @@ import { createDefaultState } from '../src/model.js';
 
 const source = readFileSync(new URL('../src/search.js', import.meta.url), 'utf8');
 const providersSource = readFileSync(new URL('../src/search-engines.js', import.meta.url), 'utf8');
+const iconsSource = readFileSync(new URL('../src/icons.js', import.meta.url), 'utf8');
 const weatherPreviewSource = readFileSync(new URL('../src/weather-preview.js', import.meta.url), 'utf8');
 const legacy = () => ({ schemaVersion: 1, revision: 19, showSearch: false, showClock: false, showWeather: true, openInNewTab: true, width: 'fluid', tileSize: 'small', searchEngine: 'google' });
 
@@ -48,7 +49,10 @@ function load(value, { body = true, form = true, weatherPreview } = {}) {
   });
   vm.runInContext(providersSource, context);
   vm.runInContext(source, context);
-  if (weatherPreview !== undefined) vm.runInContext(weatherPreviewSource, context);
+  if (weatherPreview !== undefined) {
+    vm.runInContext(iconsSource, context);
+    vm.runInContext(weatherPreviewSource, context);
+  }
   const button = id => engines.children.find(button => button.dataset.engine === id);
   const click = id => engines.handlers.get('click')({ target: button(id) });
   const enabled = () => engines.children.map(button => button.dataset.engine);
